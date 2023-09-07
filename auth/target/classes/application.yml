@@ -1,0 +1,100 @@
+server:
+  port: 8998
+
+spring:
+  application:
+    # 应用名称
+    name: myauth
+  profiles:
+    # 环境配置
+    active: dev
+  cloud:
+    nacos:
+      discovery:
+        # 服务注册地址
+        server-addr: 127.0.0.1:8848
+  datasource:
+    druid:
+      #监控配置
+      stat-view-servlet:
+        enabled: true
+        loginUsername: admin
+        loginPassword: 123456
+    dynamic:
+      druid:
+        initial-size: 5
+        min-idle: 5
+        maxActive: 20
+        maxWait: 60000
+        timeBetweenEvictionRunsMillis: 60000
+        minEvictableIdleTimeMillis: 300000
+        validationQuery: SELECT 1 FROM DUAL
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        poolPreparedStatements: true
+        maxPoolPreparedStatementPerConnectionSize: 20
+        filters: stat,slf4j
+        connectionProperties: druid.stat.mergeSql\=true;druid.stat.slowSqlMillis\=5000
+      datasource:
+        # 主库数据源
+        master:
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          url: jdbc:mysql://localhost:3306/emos?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+          username: root
+          password: tang492513
+          # 从库数据源
+          # slave:
+          # username:
+          # password:
+          # url:
+          # driver-class-name:
+      redis:
+        host: localhost
+        port: 6379
+        password: tang492513
+# mybatis配置
+mybatis:
+  # 搜索指定包别名
+  typeAliasesPackage: com.auth
+  # 配置mapper的扫描，找到所有的mapper.xml映射文件
+  mapperLocations: classpath:mapper/**/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
+
+# swagger配置
+swagger:
+  title: 业务权限接口文档
+  license: Powered By ruoyi
+  licenseUrl: https://ruoyi.vip
+
+wx-auth:
+  jwt:
+    secret: abc123456
+    mode: 1 #(1：有过期时间 2：不设置token过期时间，过期时间从最后一次登录开始计算)
+    expire: 5
+    refreshExpire: 10
+  face:
+    createFaceModelUrl: http://IP地址:3000/create_face_model
+    checkinUrl: http://IP地址:3000/checkin
+  email:
+    system: 邮箱1
+    hr: 邮箱2
+  image-folder: D:/emos/image
+  code: HelloWorld
+  recieveNotify: http://IP地址:8080/emos-wx-api/meeting/recieveNotify
+workflow:
+  url: http://IP地址:9090/emos-workflow
+
+trtc:
+  appid: appid
+  key: 密钥
+  expire: 86400
+wx:
+  app-id: wx3d155d82f2390501
+  app-secret: f2fce32699bf2fe277157dda386ae40f
+
+feign:
+  sentinel:
+    enabled: true

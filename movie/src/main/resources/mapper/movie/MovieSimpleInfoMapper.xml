@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.movie.mapper.MovieSimpleInfoMapper">
+    
+    <resultMap type="com.movie.domain.MovieSimpleInfo" id="MovieSimpleInfoResult">
+        <result property="id"    column="id"    />
+        <result property="name"    column="name"    />
+        <result property="actor"    column="actor"    />
+        <result property="point"    column="point"    />
+        <result property="episodes"    column="episodes"    />
+        <result property="type"    column="type"    />
+        <result property="tag"    column="tag"    />
+        <result property="img"    column="img"    />
+        <result property="createtime"    column="createtime"    />
+        <result property="updatetime"    column="updatetime"    />
+        <result property="state"    column="state"    />
+    </resultMap>
+
+    <sql id="selectMovieSimpleInfoVo">
+        select id, name, actor, point, episodes, type, tag, img, createtime, updatetime, state from movie_simple_info
+    </sql>
+
+    <select id="defaultMovieSimpleInfoList" resultMap="MovieSimpleInfoResult">
+        <include refid="selectMovieSimpleInfoVo"/>
+    </select>
+
+    <select id="selectMovieSimpleInfoList" parameterType="com.movie.domain.MovieSimpleInfo" resultMap="MovieSimpleInfoResult">
+        <include refid="selectMovieSimpleInfoVo"/>
+        <where>  
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="actor != null  and actor != ''"> and actor = #{actor}</if>
+            <if test="point != null  and point != ''"> and point &gt;= #{point}</if>
+            <if test="episodes != null "> and episodes = #{episodes}</if>
+            <if test="type != null  and type != ''"> and type = #{type}</if>
+            <if test="tag != null  and tag != ''"> and tag = #{tag}</if>
+            <if test="img != null  and img != ''"> and img = #{img}</if>
+            <if test="createtime != null "> and createtime = #{createtime}</if>
+            <if test="updatetime != null "> and updatetime = #{updatetime}</if>
+            <if test="state != null "> and state = #{state}</if>
+        </where>
+    </select>
+    
+    <select id="selectMovieSimpleInfoById" parameterType="Integer" resultMap="MovieSimpleInfoResult">
+        <include refid="selectMovieSimpleInfoVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertMovieSimpleInfo" parameterType="com.movie.domain.MovieSimpleInfo">
+        insert into movie_simple_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="name != null">name,</if>
+            <if test="actor != null">actor,</if>
+            <if test="point != null">point,</if>
+            <if test="episodes != null">episodes,</if>
+            <if test="type != null">type,</if>
+            <if test="tag != null">tag,</if>
+            <if test="img != null">img,</if>
+            <if test="createtime != null">createtime,</if>
+            <if test="updatetime != null">updatetime,</if>
+            <if test="state != null">state,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="name != null">#{name},</if>
+            <if test="actor != null">#{actor},</if>
+            <if test="point != null">#{point},</if>
+            <if test="episodes != null">#{episodes},</if>
+            <if test="type != null">#{type},</if>
+            <if test="tag != null">#{tag},</if>
+            <if test="img != null">#{img},</if>
+            <if test="createtime != null">#{createtime},</if>
+            <if test="updatetime != null">#{updatetime},</if>
+            <if test="state != null">#{state},</if>
+         </trim>
+    </insert>
+
+    <update id="updateMovieSimpleInfo" parameterType="com.movie.domain.MovieSimpleInfo">
+        update movie_simple_info
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null">name = #{name},</if>
+            <if test="actor != null">actor = #{actor},</if>
+            <if test="point != null">point = #{point},</if>
+            <if test="episodes != null">episodes = #{episodes},</if>
+            <if test="type != null">type = #{type},</if>
+            <if test="tag != null">tag = #{tag},</if>
+            <if test="img != null">img = #{img},</if>
+            <if test="createtime != null">createtime = #{createtime},</if>
+            <if test="updatetime != null">updatetime = #{updatetime},</if>
+            <if test="state != null">state = #{state},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteMovieSimpleInfoById" parameterType="Integer">
+        delete from movie_simple_info where id = #{id}
+    </delete>
+
+    <delete id="deleteMovieSimpleInfoByIds" parameterType="String">
+        delete from movie_simple_info where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

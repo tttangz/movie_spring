@@ -1,0 +1,23 @@
+server:
+  port: 8998
+# Spring
+spring:
+  application:
+    # 应用名称
+    name: message
+  cloud:
+    nacos:
+      discovery:
+        # 服务注册地址
+        server-addr: 127.0.0.1:8848
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: emos
+      authentication-database: admin
+      username: admin
+      password: abc123456
+feign:
+  sentinel:
+    enabled: true
