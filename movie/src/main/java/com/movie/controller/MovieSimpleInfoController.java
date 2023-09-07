@@ -6,11 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.movie.service.IMovieSimpleInfoService;
 import com.ruoyi.common.core.domain.R;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import com.ruoyi.common.security.annotation.RequiresPermissions;
 import com.movie.domain.MovieSimpleInfo;
 import com.ruoyi.common.core.web.controller.BaseController;
@@ -73,6 +69,19 @@ public class MovieSimpleInfoController extends BaseController
     public R getInfo(@PathVariable("id") Integer id)
     {
         return R.ok(movieSimpleInfoService.selectMovieSimpleInfoById(id));
+        //return success(movieSimpleInfoService.selectMovieSimpleInfoById(id));
+    }
+
+    /**
+     * 根据type 和 tag获取数据
+     */
+    @GetMapping(value = "/type/{type}/")
+    public R getInfo(@PathVariable("type") String type, @RequestParam ("tag") String tag)
+    {
+        if (type.equals("")) {
+            return R.fail("type不能为空！");
+        }
+        return R.ok(movieSimpleInfoService.selectMovieSimpleInfoByType(type, tag));
         //return success(movieSimpleInfoService.selectMovieSimpleInfoById(id));
     }
 

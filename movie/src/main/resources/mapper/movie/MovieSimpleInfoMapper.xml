@@ -46,6 +46,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <include refid="selectMovieSimpleInfoVo"/>
         where id = #{id}
     </select>
+
+    <select id="selectMovieSimpleInfoByType" parameterType="Map" resultMap="MovieSimpleInfoResult">
+        <include refid="selectMovieSimpleInfoVo"/>
+        <where>
+            <if test="type != 0">json_contains(type, json_array(#{type})) </if>
+            <if test="tag != 0">json_contains(tag, json_array(#{tag})) </if>
+        </where>
+    </select>
         
     <insert id="insertMovieSimpleInfo" parameterType="com.movie.domain.MovieSimpleInfo">
         insert into movie_simple_info

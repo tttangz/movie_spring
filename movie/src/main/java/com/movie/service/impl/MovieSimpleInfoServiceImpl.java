@@ -1,5 +1,6 @@
 package com.movie.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.movie.service.IMovieSimpleInfoService;
@@ -30,6 +31,15 @@ public class MovieSimpleInfoServiceImpl implements IMovieSimpleInfoService
     public MovieSimpleInfo selectMovieSimpleInfoById(Integer id)
     {
         return movieSimpleInfoMapper.selectMovieSimpleInfoById(id);
+    }
+
+    @Override
+    public List<MovieSimpleInfo> selectMovieSimpleInfoByType(String type, String tag)
+    {
+        HashMap<String,Integer> map = new HashMap<>();
+        map.put("type", Integer.parseInt(type));
+        map.put("tag", Integer.parseInt(tag));
+        return movieSimpleInfoMapper.selectMovieSimpleInfoByType(map);
     }
 
     /**

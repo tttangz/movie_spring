@@ -1,6 +1,8 @@
 package com.movie.mapper;
 
 import java.util.List;
+import java.util.Map;
+
 import com.movie.domain.MovieSimpleInfo;
 import com.ruoyi.common.datasource.annotation.Master;
 import org.apache.ibatis.annotations.Mapper;
@@ -28,6 +30,14 @@ public interface MovieSimpleInfoMapper
      * @return 搜索
      */
     public MovieSimpleInfo selectMovieSimpleInfoById(Integer id);
+
+    /**
+     * 查询搜索
+     *
+     * @param map 搜索类型
+     * @return 搜索
+     */
+    public List<MovieSimpleInfo> selectMovieSimpleInfoByType(Map map);
 
     /**
      * 查询搜索列表

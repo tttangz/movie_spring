@@ -1,5 +1,6 @@
 package com.common.user;
 
+
 import lombok.Data;
 
 @Data
