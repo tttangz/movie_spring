@@ -1,8 +1,10 @@
 package com.movie.service.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import com.alibaba.fastjson2.JSON;
 import com.movie.service.IMovieSimpleInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,9 +38,20 @@ public class MovieSimpleInfoServiceImpl implements IMovieSimpleInfoService
     @Override
     public List<MovieSimpleInfo> selectMovieSimpleInfoByType(String type, String tag)
     {
-        HashMap<String,Integer> map = new HashMap<>();
-        map.put("type", Integer.parseInt(type));
-        map.put("tag", Integer.parseInt(tag));
+        //String[] typeArr = type.split("-");
+        List<Integer> typeList = new ArrayList<>();
+//        for (String item: typeArr) {
+//            typeList.add(Integer.parseInt(item));
+//        }
+        typeList.add(Integer.parseInt(type));
+        String[] tagArr = tag.split("-");
+        List<Integer> tagList = new ArrayList<>();
+        for (String item: tagArr) {
+            tagList.add(Integer.parseInt(item));
+        }
+        HashMap<String,List<Integer>> map = new HashMap<>();
+        map.put("type", typeList);
+        map.put("tag", tagList);
         return movieSimpleInfoMapper.selectMovieSimpleInfoByType(map);
     }
 

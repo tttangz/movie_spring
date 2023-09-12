@@ -47,11 +47,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where id = #{id}
     </select>
 
-    <select id="selectMovieSimpleInfoByType" parameterType="Map" resultMap="MovieSimpleInfoResult">
+    <select id="selectMovieSimpleInfoByType" parameterType="java.util.Map" resultMap="MovieSimpleInfoResult">
         <include refid="selectMovieSimpleInfoVo"/>
         <where>
-            <if test="type != 0">json_contains(type, json_array(#{type})) </if>
-            <if test="tag != 0">json_contains(tag, json_array(#{tag})) </if>
+            <if test="type.size() != 0">and json_contains(type, json_array(<foreach collection="type" item="item" separator=",">#{item}</foreach>))
+            </if>
+            <if test="tag.size() != 0">and json_contains(tag, json_array(<foreach collection="tag" item="item" separator=",">#{item}</foreach>))
+            </if>
         </where>
     </select>
         

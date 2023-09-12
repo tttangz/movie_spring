@@ -77,6 +77,7 @@ public class MovieSimpleInfoController extends BaseController
      */
     @GetMapping(value = "/type/{type}/")
     public R getInfo(@PathVariable("type") String type, @RequestParam ("tag") String tag)
+    //@RequestBody JSONObject param
     {
         if (type.equals("")) {
             return R.fail("type不能为空！");
