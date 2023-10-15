@@ -82,11 +82,6 @@ public class MovieSearchServiceImpl implements MovieSearchService
         return movieSimpleInfoMapper.selectMovieSimpleInfoList(movieSimpleInfo);
     }
 
-    @Override
-    public List<MovieSimpleInfo> defaultMovieSimpleInfoList() {
-        return movieSimpleInfoMapper.defaultMovieSimpleInfoList();
-    }
-
     /**
      * 新增搜索
      *

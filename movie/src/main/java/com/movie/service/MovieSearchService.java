@@ -36,13 +36,6 @@ public interface MovieSearchService
     public List<MovieSimpleInfo> selectMovieSimpleInfoList(MovieSimpleInfo movieSimpleInfo);
 
     /**
-     * 查询搜索列表
-     *
-     * @return 搜索集合
-     */
-    public List<MovieSimpleInfo> defaultMovieSimpleInfoList();
-
-    /**
      * 新增搜索
      *
      * @param movieSimpleInfo 搜索
