@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.movie.mapper.MovieDetailInfoMapper">
+  <resultMap id="MovieDetailInfoResult" type="com.movie.domain.MovieDetailInfo">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="showtime" jdbcType="VARCHAR" property="showtime" />
+    <result column="introduction" jdbcType="VARCHAR" property="introduction" />
+    <result column="area" jdbcType="VARCHAR" property="area" />
+    <result column="language" jdbcType="VARCHAR" property="language" />
+    <result column="size" jdbcType="VARCHAR" property="size" />
+    <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="updatetime" jdbcType="TIMESTAMP" property="updatetime" />
+    <result column="director" jdbcType="VARCHAR" property="director" />
+    <result column="palywright" jdbcType="VARCHAR" property="palywright" />
+    <result column="time_length" jdbcType="VARCHAR" property="timeLength" />
+  </resultMap>
+  <sql id="selectMovieDetailInfoVo">
+      select id, showtime, introduction, area, `language`, `size`, createtime, updatetime, director,
+    palywright, time_length from movie_detail_info
+  </sql>
+    <select id="selectMovieDetailInfoById" parameterType="Integer" resultMap="MovieDetailInfoResult">
+        <include refid="selectMovieDetailInfoVo"/>
+        where id = #{id}
+    </select>
+</mapper>

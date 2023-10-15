@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.movie.mapper.MovieTypeMapper">
+  <resultMap id="BaseResultMap" type="com.movie.domain.MovieType">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="type_name" jdbcType="VARCHAR" property="typeName" />
+    <result column="type_comment" jdbcType="VARCHAR" property="typeComment" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, type_name, type_comment
+  </sql>
+</mapper>
