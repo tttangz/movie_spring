@@ -22,10 +22,6 @@
     select id, name, actor, point, episodes, type, tag, img, createtime, updatetime, state from movie_simple_info
   </sql>
 
-  <select id="defaultMovieSimpleInfoList" resultMap="MovieSimpleInfoResult">
-    <include refid="selectMovieSimpleInfoVo"/>
-  </select>
-
   <select id="selectMovieSimpleInfoList" parameterType="com.movie.domain.MovieSimpleInfo" resultMap="MovieSimpleInfoResult">
     <include refid="selectMovieSimpleInfoVo"/>
     <where>
@@ -42,6 +38,7 @@
     </where>
   </select>
 
+
   <select id="selectMovieSimpleInfoById" parameterType="Integer" resultMap="MovieSimpleInfoResult">
     <include refid="selectMovieSimpleInfoVo"/>
     where id = #{id}
@@ -51,7 +48,16 @@
     <include refid="selectMovieSimpleInfoVo"/>
     where type = #{type}
   </select>
-  <select id="selectMovieSimpleInfoByTypeAndTag" resultType="com.movie.domain.MovieSimpleInfo"></select>
+
+  <select id="selectMovieSimpleInfoByTypeAndTag" parameterType="java.util.Map" resultMap="MovieSimpleInfoResult">
+    <include refid="selectMovieSimpleInfoVo"/>
+    <where>
+      <if test="type.size() != 0">and json_contains(type, json_array(<foreach collection="type" item="item" separator=",">#{item}</foreach>))
+      </if>
+      <if test="tag.size() != 0">and json_contains(tag, json_array(<foreach collection="tag" item="item" separator=",">#{item}</foreach>))
+      </if>
+    </where>
+  </select>
 
   <insert id="insertMovieSimpleInfo" parameterType="com.movie.domain.MovieSimpleInfo">
     insert into movie_simple_info

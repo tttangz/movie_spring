@@ -21,12 +21,6 @@ public interface MovieSimpleInfoMapper
     /**
      * 查询搜索
      *
-     * @return 搜索
-     */
-    List<MovieSimpleInfo> defaultMovieSimpleInfoList();
-    /**
-     * 查询搜索
-     *
      * @param id 搜索主键
      * @return 搜索
      */
@@ -35,7 +29,7 @@ public interface MovieSimpleInfoMapper
     /**
      * 查询搜索
      *
-     * @param map 搜索类型
+     * @param type 搜索类型
      * @return 搜索
      */
     public List<MovieSimpleInfo> selectMovieSimpleInfoByType(String type);

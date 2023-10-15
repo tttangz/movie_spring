@@ -26,6 +26,7 @@
     <include refid="selectMovieSimpleInfoVo"/>
   </select>
 
+<<<<<<< HEAD
   <select id="selectMovieSimpleInfoList" parameterType="com.movie.domain.MovieSimpleInfo" resultMap="MovieSimpleInfoResult">
     <include refid="selectMovieSimpleInfoVo"/>
     <where>
@@ -41,6 +42,47 @@
       <if test="state != null "> and state = #{state}</if>
     </where>
   </select>
+=======
+    <select id="selectMovieSimpleInfoByType" parameterType="java.util.Map" resultMap="MovieSimpleInfoResult">
+        <include refid="selectMovieSimpleInfoVo"/>
+        <where>
+            <if test="type.size() != 0">and json_contains(type, json_array(<foreach collection="type" item="item" separator=",">#{item}</foreach>))
+            </if>
+            <if test="tag.size() != 0">and json_contains(tag, json_array(<foreach collection="tag" item="item" separator=",">#{item}</foreach>))
+            </if>
+        </where>
+    </select>
+        
+    <insert id="insertMovieSimpleInfo" parameterType="com.movie.domain.MovieSimpleInfo">
+        insert into movie_simple_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="name != null">name,</if>
+            <if test="actor != null">actor,</if>
+            <if test="point != null">point,</if>
+            <if test="episodes != null">episodes,</if>
+            <if test="type != null">type,</if>
+            <if test="tag != null">tag,</if>
+            <if test="img != null">img,</if>
+            <if test="createtime != null">createtime,</if>
+            <if test="updatetime != null">updatetime,</if>
+            <if test="state != null">state,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="name != null">#{name},</if>
+            <if test="actor != null">#{actor},</if>
+            <if test="point != null">#{point},</if>
+            <if test="episodes != null">#{episodes},</if>
+            <if test="type != null">#{type},</if>
+            <if test="tag != null">#{tag},</if>
+            <if test="img != null">#{img},</if>
+            <if test="createtime != null">#{createtime},</if>
+            <if test="updatetime != null">#{updatetime},</if>
+            <if test="state != null">#{state},</if>
+         </trim>
+    </insert>
+>>>>>>> a9fcd231ce57821e3749b75b1132cf7f7af58d44
 
   <select id="selectMovieSimpleInfoById" parameterType="Integer" resultMap="MovieSimpleInfoResult">
     <include refid="selectMovieSimpleInfoVo"/>
