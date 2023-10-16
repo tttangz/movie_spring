@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.movie.mapper.MovieSimpleInfoMapper">
+<mapper namespace="com.movie.mapperInterface.MovieSimpleInfoMapper">
 
-  <resultMap type="com.movie.domain.MovieSimpleInfo" id="MovieSimpleInfoResult">
+  <resultMap type="com.movie.pojo.MovieSimpleInfo" id="MovieSimpleInfoResult">
     <result property="id"    column="id"    />
     <result property="name"    column="name"    />
     <result property="actor"    column="actor"    />
@@ -22,32 +22,19 @@
     select id, name, actor, point, episodes, type, tag, img, createtime, updatetime, state from movie_simple_info
   </sql>
 
-  <select id="defaultMovieSimpleInfoList" resultMap="MovieSimpleInfoResult">
-    <include refid="selectMovieSimpleInfoVo"/>
-  </select>
+    <select id="selectMovieSimpleInfoById" parameterType="Integer" resultMap="MovieSimpleInfoResult">
+        <include refid="selectMovieSimpleInfoVo"/>
+        where id = #{id}
+    </select>
 
-<<<<<<< HEAD
+    <select id="selectMovieSimpleInfoByType" parameterType="String" resultMap="MovieSimpleInfoResult">
+        <include refid="selectMovieSimpleInfoVo"/>
+        <where>
+            type = #{type}
+        </where>
+    </select>
+
     <select id="selectMovieSimpleInfoByTypeAndTag" parameterType="java.util.Map" resultMap="MovieSimpleInfoResult">
-=======
-<<<<<<< HEAD
-  <select id="selectMovieSimpleInfoList" parameterType="com.movie.domain.MovieSimpleInfo" resultMap="MovieSimpleInfoResult">
-    <include refid="selectMovieSimpleInfoVo"/>
-    <where>
-      <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
-      <if test="actor != null  and actor != ''"> and actor = #{actor}</if>
-      <if test="point != null  and point != ''"> and point &gt;= #{point}</if>
-      <if test="episodes != null "> and episodes = #{episodes}</if>
-      <if test="type != null  and type != ''"> and type = #{type}</if>
-      <if test="tag != null  and tag != ''"> and tag = #{tag}</if>
-      <if test="img != null  and img != ''"> and img = #{img}</if>
-      <if test="createtime != null "> and createtime = #{createtime}</if>
-      <if test="updatetime != null "> and updatetime = #{updatetime}</if>
-      <if test="state != null "> and state = #{state}</if>
-    </where>
-  </select>
-=======
-    <select id="selectMovieSimpleInfoByType" parameterType="java.util.Map" resultMap="MovieSimpleInfoResult">
->>>>>>> acbbec1c5be3830b5fc016a1074e7c461a4191d8
         <include refid="selectMovieSimpleInfoVo"/>
         <where>
             <if test="type.size() != 0">and type = #{type[0]}
@@ -57,14 +44,23 @@
         </where>
     </select>
 
-    <select id="selectMovieSimpleInfoByType" parameterType="String" resultMap="MovieSimpleInfoResult">
+    <select id="selectMovieSimpleInfoList" parameterType="com.movie.pojo.MovieSimpleInfo" resultMap="MovieSimpleInfoResult">
         <include refid="selectMovieSimpleInfoVo"/>
         <where>
-            type = #{type}
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="actor != null  and actor != ''"> and actor = #{actor}</if>
+            <if test="point != null  and point != ''"> and point &gt;= #{point}</if>
+            <if test="episodes != null "> and episodes = #{episodes}</if>
+            <if test="type != null  and type != ''"> and type = #{type}</if>
+            <if test="tag != null  and tag != ''"> and tag = #{tag}</if>
+            <if test="img != null  and img != ''"> and img = #{img}</if>
+            <if test="createtime != null "> and createtime = #{createtime}</if>
+            <if test="updatetime != null "> and updatetime = #{updatetime}</if>
+            <if test="state != null "> and state = #{state}</if>
         </where>
     </select>
-        
-    <insert id="insertMovieSimpleInfo" parameterType="com.movie.domain.MovieSimpleInfo">
+
+    <insert id="insertMovieSimpleInfo" parameterType="com.movie.pojo.MovieSimpleInfo">
         insert into movie_simple_info
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">id,</if>
@@ -93,50 +89,8 @@
             <if test="state != null">#{state},</if>
          </trim>
     </insert>
->>>>>>> a9fcd231ce57821e3749b75b1132cf7f7af58d44
 
-  <select id="selectMovieSimpleInfoById" parameterType="Integer" resultMap="MovieSimpleInfoResult">
-    <include refid="selectMovieSimpleInfoVo"/>
-    where id = #{id}
-  </select>
-
-  <select id="selectMovieSimpleInfoByType" parameterType="String" resultMap="MovieSimpleInfoResult">
-    <include refid="selectMovieSimpleInfoVo"/>
-    where type = #{type}
-  </select>
-  <select id="selectMovieSimpleInfoByTypeAndTag" resultType="com.movie.domain.MovieSimpleInfo"></select>
-
-  <insert id="insertMovieSimpleInfo" parameterType="com.movie.domain.MovieSimpleInfo">
-    insert into movie_simple_info
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">id,</if>
-      <if test="name != null">name,</if>
-      <if test="actor != null">actor,</if>
-      <if test="point != null">point,</if>
-      <if test="episodes != null">episodes,</if>
-      <if test="type != null">type,</if>
-      <if test="tag != null">tag,</if>
-      <if test="img != null">img,</if>
-      <if test="createtime != null">createtime,</if>
-      <if test="updatetime != null">updatetime,</if>
-      <if test="state != null">state,</if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">#{id},</if>
-      <if test="name != null">#{name},</if>
-      <if test="actor != null">#{actor},</if>
-      <if test="point != null">#{point},</if>
-      <if test="episodes != null">#{episodes},</if>
-      <if test="type != null">#{type},</if>
-      <if test="tag != null">#{tag},</if>
-      <if test="img != null">#{img},</if>
-      <if test="createtime != null">#{createtime},</if>
-      <if test="updatetime != null">#{updatetime},</if>
-      <if test="state != null">#{state},</if>
-    </trim>
-  </insert>
-
-  <update id="updateMovieSimpleInfo" parameterType="com.movie.domain.MovieSimpleInfo">
+  <update id="updateMovieSimpleInfo" parameterType="com.movie.pojo.MovieSimpleInfo">
     update movie_simple_info
     <trim prefix="SET" suffixOverrides=",">
       <if test="name != null">name = #{name},</if>

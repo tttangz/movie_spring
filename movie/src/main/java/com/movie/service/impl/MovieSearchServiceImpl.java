@@ -4,28 +4,32 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import com.alibaba.fastjson2.JSON;
-import com.movie.service.IMovieSimpleInfoService;
+import com.movie.pojo.MovieDetailInfo;
+import com.movie.service.MovieSearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.movie.mapper.MovieSimpleInfoMapper;
-import com.movie.domain.MovieSimpleInfo;
+import com.movie.mapperInterface.MovieSimpleInfoMapper;
+import com.movie.mapperInterface.MovieDetailInfoMapper;
+import com.movie.pojo.MovieSimpleInfo;
 
 /**
  * 搜索Service业务层处理
- * 
+ *
  * @author ruoyi
  * @date 2023-08-20
  */
 @Service
-public class MovieSimpleInfoServiceImpl implements IMovieSimpleInfoService
+public class MovieSearchServiceImpl implements MovieSearchService
 {
     @Autowired
     private MovieSimpleInfoMapper movieSimpleInfoMapper;
 
+    @Autowired
+    private MovieDetailInfoMapper movieDetailInfoMapper;
+
     /**
      * 查询搜索
-     * 
+     *
      * @param id 搜索主键
      * @return 搜索
      */
@@ -44,11 +48,7 @@ public class MovieSimpleInfoServiceImpl implements IMovieSimpleInfoService
     @Override
     public List<MovieSimpleInfo> selectMovieSimpleInfoByTypeAndTag(String type, String tag)
     {
-        //String[] typeArr = type.split("-");
         List<String> typeList = new ArrayList<>();
-//        for (String item: typeArr) {
-//            typeList.add(Integer.parseInt(item));
-//        }
         typeList.add(type);
         String[] tagArr = tag.split("-");
         List<String> tagList = new ArrayList<>();
@@ -63,7 +63,7 @@ public class MovieSimpleInfoServiceImpl implements IMovieSimpleInfoService
 
     /**
      * 查询搜索列表
-     * 
+     *
      * @param movieSimpleInfo 搜索
      * @return 搜索
      */
@@ -73,14 +73,9 @@ public class MovieSimpleInfoServiceImpl implements IMovieSimpleInfoService
         return movieSimpleInfoMapper.selectMovieSimpleInfoList(movieSimpleInfo);
     }
 
-    @Override
-    public List<MovieSimpleInfo> defaultMovieSimpleInfoList() {
-        return movieSimpleInfoMapper.defaultMovieSimpleInfoList();
-    }
-
     /**
      * 新增搜索
-     * 
+     *
      * @param movieSimpleInfo 搜索
      * @return 结果
      */
@@ -92,7 +87,7 @@ public class MovieSimpleInfoServiceImpl implements IMovieSimpleInfoService
 
     /**
      * 修改搜索
-     * 
+     *
      * @param movieSimpleInfo 搜索
      * @return 结果
      */
@@ -104,7 +99,7 @@ public class MovieSimpleInfoServiceImpl implements IMovieSimpleInfoService
 
     /**
      * 批量删除搜索
-     * 
+     *
      * @param ids 需要删除的搜索主键
      * @return 结果
      */
@@ -116,7 +111,7 @@ public class MovieSimpleInfoServiceImpl implements IMovieSimpleInfoService
 
     /**
      * 删除搜索信息
-     * 
+     *
      * @param id 搜索主键
      * @return 结果
      */
@@ -124,5 +119,10 @@ public class MovieSimpleInfoServiceImpl implements IMovieSimpleInfoService
     public int deleteMovieSimpleInfoById(Integer id)
     {
         return movieSimpleInfoMapper.deleteMovieSimpleInfoById(id);
+    }
+
+    @Override
+    public MovieDetailInfo selectMovieDetailInfoById(Integer id) {
+        return movieDetailInfoMapper.selectMovieDetailInfoById(id);
     }
 }

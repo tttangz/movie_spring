@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.movie.mapperInterface.Id4urlDaoMapper">
+  <resultMap id="BaseResultMap" type="com.movie.pojo.Id4url">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="movie_id" jdbcType="INTEGER" property="movieId" />
+    <result column="now_episode" jdbcType="SMALLINT" property="nowEpisode" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="site_from" jdbcType="VARCHAR" property="siteFrom" />
+    <result column="iframe" jdbcType="VARCHAR" property="iframe" />
+    <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="updatetime" jdbcType="TIMESTAMP" property="updatetime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, movie_id, now_episode, url, site_from, iframe, createtime, updatetime
+  </sql>
+</mapper>
