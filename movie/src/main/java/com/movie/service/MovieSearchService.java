@@ -6,10 +6,10 @@ import com.movie.pojo.MovieDetailInfo;
 import com.movie.pojo.MovieSimpleInfo;
 
 /**
- * 搜索Service接口
+ * movie接口
  *
- * @author ruoyi
- * @date 2023-08-20
+ * @author tangzhao
+ * @date 2023-10-16
  */
 public interface MovieSearchService
 {
