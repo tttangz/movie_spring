@@ -37,7 +37,9 @@ public interface MovieSimpleInfoMapper
      * @param map 搜索类型
      * @return 搜索
      */
-    public List<MovieSimpleInfo> selectMovieSimpleInfoByType(Map map);
+    public List<MovieSimpleInfo> selectMovieSimpleInfoByType(String type);
+
+    public List<MovieSimpleInfo> selectMovieSimpleInfoByTypeAndTag(Map map);
 
     /**
      * 查询搜索列表

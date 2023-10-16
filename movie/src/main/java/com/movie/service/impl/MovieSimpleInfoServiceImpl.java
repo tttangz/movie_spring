@@ -36,23 +36,29 @@ public class MovieSimpleInfoServiceImpl implements IMovieSimpleInfoService
     }
 
     @Override
-    public List<MovieSimpleInfo> selectMovieSimpleInfoByType(String type, String tag)
+    public List<MovieSimpleInfo> selectMovieSimpleInfoByType(String type)
+    {
+        return movieSimpleInfoMapper.selectMovieSimpleInfoByType(type);
+    }
+
+    @Override
+    public List<MovieSimpleInfo> selectMovieSimpleInfoByTypeAndTag(String type, String tag)
     {
         //String[] typeArr = type.split("-");
-        List<Integer> typeList = new ArrayList<>();
+        List<String> typeList = new ArrayList<>();
 //        for (String item: typeArr) {
 //            typeList.add(Integer.parseInt(item));
 //        }
-        typeList.add(Integer.parseInt(type));
+        typeList.add(type);
         String[] tagArr = tag.split("-");
-        List<Integer> tagList = new ArrayList<>();
+        List<String> tagList = new ArrayList<>();
         for (String item: tagArr) {
-            tagList.add(Integer.parseInt(item));
+            tagList.add(item);
         }
-        HashMap<String,List<Integer>> map = new HashMap<>();
+        HashMap<String,List<String>> map = new HashMap<>();
         map.put("type", typeList);
         map.put("tag", tagList);
-        return movieSimpleInfoMapper.selectMovieSimpleInfoByType(map);
+        return movieSimpleInfoMapper.selectMovieSimpleInfoByTypeAndTag(map);
     }
 
     /**

@@ -19,7 +19,9 @@ public interface IMovieSimpleInfoService
      */
     public MovieSimpleInfo selectMovieSimpleInfoById(Integer id);
 
-    public List<MovieSimpleInfo> selectMovieSimpleInfoByType(String type, String tag);
+    public List<MovieSimpleInfo> selectMovieSimpleInfoByTypeAndTag(String type, String tag);
+
+    public List<MovieSimpleInfo> selectMovieSimpleInfoByType(String type);
 
     /**
      * 查询搜索列表

@@ -75,14 +75,28 @@ public class MovieSimpleInfoController extends BaseController
     /**
      * 根据type 和 tag获取数据
      */
-    @GetMapping(value = "/type/{type}/")
-    public R getInfo(@PathVariable("type") String type, @RequestParam ("tag") String tag)
+    @GetMapping(value = "/type/{type}")
+    public R getInfoByType(@PathVariable("type") String type)
     //@RequestBody JSONObject param
     {
         if (type.equals("")) {
             return R.fail("type不能为空！");
         }
-        return R.ok(movieSimpleInfoService.selectMovieSimpleInfoByType(type, tag));
+        return R.ok(movieSimpleInfoService.selectMovieSimpleInfoByType(type));
+        //return success(movieSimpleInfoService.selectMovieSimpleInfoById(id));
+    }
+
+    /**
+     * 根据type 和 tag获取数据
+     */
+    @GetMapping(value = "/typeAndTag/{type}/")
+    public R getInfoBytypeAndtag(@PathVariable("type") String type, @RequestParam ("tag") String tag)
+    //@RequestBody JSONObject param
+    {
+        if (type.equals("")) {
+            return R.fail("type不能为空！");
+        }
+        return R.ok(movieSimpleInfoService.selectMovieSimpleInfoByTypeAndTag(type, tag));
         //return success(movieSimpleInfoService.selectMovieSimpleInfoById(id));
     }
 
