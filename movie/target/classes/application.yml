@@ -58,7 +58,7 @@ mybatis:
   # 搜索指定包别名
   typeAliasesPackage: com.movie
   # 配置mapper的扫描，找到所有的mapper.xml映射文件
-  mapperLocations: classpath:mapper/**/*.xml
+  mapperLocations: classpath:mapperXml/*.xml
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     map-underscore-to-camel-case: true

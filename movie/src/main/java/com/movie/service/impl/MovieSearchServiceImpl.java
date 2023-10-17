@@ -3,7 +3,10 @@ package com.movie.service.impl;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import com.movie.mapperInterface.Id4urlMapper;
+import com.movie.pojo.Id4url;
 import com.movie.pojo.MovieDetailInfo;
 import com.movie.service.MovieSearchService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +29,9 @@ public class MovieSearchServiceImpl implements MovieSearchService
 
     @Autowired
     private MovieDetailInfoMapper movieDetailInfoMapper;
+
+    @Autowired
+    private Id4urlMapper id4urlMapper;
 
     /**
      * 查询搜索
@@ -124,5 +130,13 @@ public class MovieSearchServiceImpl implements MovieSearchService
     @Override
     public MovieDetailInfo selectMovieDetailInfoById(Integer id) {
         return movieDetailInfoMapper.selectMovieDetailInfoById(id);
+    }
+
+    @Override
+    public Id4url selectId4urlByIdAndEpisode(Integer id, Integer episode) {
+        Map<String,Integer> item = new HashMap<>();
+        item.put("id",id);
+        item.put("episode",episode);
+        return id4urlMapper.selectId4urlByIdAndEpisode(item);
     }
 }

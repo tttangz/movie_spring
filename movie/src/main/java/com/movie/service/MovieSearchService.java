@@ -2,6 +2,7 @@ package com.movie.service;
 
 import java.util.List;
 
+import com.movie.pojo.Id4url;
 import com.movie.pojo.MovieDetailInfo;
 import com.movie.pojo.MovieSimpleInfo;
 
@@ -67,4 +68,6 @@ public interface MovieSearchService
 
 
     public MovieDetailInfo selectMovieDetailInfoById(Integer id);
+
+    public Id4url selectId4urlByIdAndEpisode(Integer id, Integer episode);
 }

@@ -55,13 +55,28 @@ public class MovieSearchController extends BaseController
     /**
      * 根据type 和 tag获取数据
      */
-    @GetMapping(value = "/typeAndTag/{type}/")
-    public R getMovieListByTypeAndTag(@PathVariable("type") String type, @RequestParam ("tag") String tag)
+    @GetMapping(value = "/typeAndTag/{type}/{tag}")
+    public R getMovieListByTypeAndTag(@PathVariable("type") String type, @PathVariable ("tag") String tag)
     {
         if (type.equals("")) {
             return R.fail("type不能为空！");
         }
         return R.ok(movieSearchService.selectMovieSimpleInfoByTypeAndTag(type, tag));
+    }
+
+    /**
+     * 根据type 和 tag获取数据
+     */
+    @GetMapping(value = "/movieShow/id/{id}")
+    public R getMovieId4UrlData(@PathVariable("id") Integer id, @RequestParam ("episode") Integer episode)
+    {
+        if (id.equals("")) {
+            return R.fail("type不能为空！");
+        }
+        if (episode.equals("")) {
+            return R.fail("episode！");
+        }
+        return R.ok(movieSearchService.selectId4urlByIdAndEpisode(id, episode));
     }
 
 //    /**
