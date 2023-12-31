@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <groupId>com.ruoyi</groupId>
-        <artifactId>ruoyi-modules</artifactId>
+        <artifactId>movie_spring</artifactId>
         <version>3.6.3</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -87,7 +87,6 @@
             <groupId>com.ruoyi</groupId>
             <artifactId>common</artifactId>
             <version>3.6.3</version>
-            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.alibaba</groupId>

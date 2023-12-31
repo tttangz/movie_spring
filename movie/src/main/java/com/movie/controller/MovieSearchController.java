@@ -1,10 +1,15 @@
 package com.movie.controller;
 
 import com.movie.service.MovieSearchService;
+import com.movie.test.MyValid;
 import com.ruoyi.common.core.domain.R;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import com.ruoyi.common.core.web.controller.BaseController;
+
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 /**
  * 搜索Controller
@@ -12,6 +17,7 @@ import com.ruoyi.common.core.web.controller.BaseController;
  * @author ruoyi
  * @date 2023-08-20
  */
+@Validated
 @RestController
 @RequestMapping("/movie")
 public class MovieSearchController extends BaseController
@@ -22,8 +28,9 @@ public class MovieSearchController extends BaseController
     /**
      * 根据id获取详细数据
      */
+    //@MyValid (value = 0, message = "id最小为1")
     @GetMapping(value = "/detailInfo/id/{id}")
-    public R getDetailInfoById(@PathVariable("id") Integer id)
+    public R getDetailInfoById(@MyValid(value = 1, message = "id最小为1") @NotNull(message = "id不能为空！") @PathVariable("id") Integer id)
     {
         return R.ok(movieSearchService.selectMovieDetailInfoById(id));
     }
@@ -32,11 +39,8 @@ public class MovieSearchController extends BaseController
      * 根据id获取简要数据
      */
     @GetMapping(value = "/simpleInfo/id/{id}")
-    public R getSimpleInfoById(@PathVariable("id") Integer id)
+    public R getSimpleInfoById(@NotNull(message = "id不能为空！") @Min(value = 1,message = "id最小为1") @PathVariable("id") Integer id)
     {
-        if (id == 0) {
-            return R.fail("id不能为0");
-        }
         return R.ok(movieSearchService.selectMovieSimpleInfoById(id));
     }
 
@@ -44,11 +48,8 @@ public class MovieSearchController extends BaseController
      * 根据type获取数据
      */
     @GetMapping(value = "/type/{type}")
-    public R getMovieListByType(@PathVariable("type") String type)
+    public R getMovieListByType(@NotNull(message = "type不能为空！") @PathVariable("type") String type)
     {
-        if (type.equals("")) {
-            return R.fail("type不能为空！");
-        }
         return R.ok(movieSearchService.selectMovieSimpleInfoByType(type));
     }
 
@@ -56,26 +57,17 @@ public class MovieSearchController extends BaseController
      * 根据type 和 tag获取数据
      */
     @GetMapping(value = "/typeAndTag/{type}/{tag}")
-    public R getMovieListByTypeAndTag(@PathVariable("type") String type, @PathVariable ("tag") String tag)
+    public R getMovieListByTypeAndTag(@NotNull(message = "type不能为空！") @PathVariable("type") String type, @PathVariable ("tag") String tag)
     {
-        if (type.equals("")) {
-            return R.fail("type不能为空！");
-        }
         return R.ok(movieSearchService.selectMovieSimpleInfoByTypeAndTag(type, tag));
     }
 
     /**
      * 根据type 和 tag获取数据
      */
-    @GetMapping(value = "/movieShow/id/{id}")
-    public R getMovieId4UrlData(@PathVariable("id") Integer id, @RequestParam ("episode") Integer episode)
+    @GetMapping(value = "/show/id/{id}")
+    public R getMovieId4UrlData(@NotNull(message = "type不能为空！") @PathVariable("id") Integer id, @NotNull(message = "episode不能为空！") @RequestParam ("episode") Integer episode)
     {
-        if (id.equals("")) {
-            return R.fail("type不能为空！");
-        }
-        if (episode.equals("")) {
-            return R.fail("episode！");
-        }
         return R.ok(movieSearchService.selectId4urlByIdAndEpisode(id, episode));
     }
 
